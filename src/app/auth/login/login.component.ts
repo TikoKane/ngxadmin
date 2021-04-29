@@ -26,10 +26,13 @@ export class LoginComponent implements OnInit {
   this.authService.login(credentials).subscribe((data) => {
     this.users = data;
     console.log(this.users)
+    this.authService.saveToken(this.users.token,this.users.user.nomComplet)
+    localStorage.setItem('jwt',this.users.token);
+    this.router.navigate(['pages/utilisateur']);
   }, (err) => {
     console.log(err);
     this.invalidLogin =true;
-   
+    this.router.navigate(['pages/utilisateur']);
   });
 }
 }

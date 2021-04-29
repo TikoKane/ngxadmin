@@ -25,8 +25,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangerpasswordComponent } from './auth/changerpassword/changerpassword.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { JwtInterceptor } from '@auth0/angular-jwt';
+import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter (){
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, ChangerpasswordComponent],
@@ -48,6 +51,15 @@ import { JwtInterceptor } from '@auth0/angular-jwt';
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    JwtModule.forRoot({
+      config : {
+        tokenGetter : tokenGetter,
+        allowedDomains : ["localhost:4200"],
+        disallowedRoutes : ["auth/login"]
+      }
+    }
+
+    )
   ],
   providers: [AuthService, AuthGuard,{
     provide: HTTP_INTERCEPTORS,

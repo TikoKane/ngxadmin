@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 const routes: Routes = [{
-  path: '',
+  path: 'pages',
   component: PagesComponent,
   children: [
 

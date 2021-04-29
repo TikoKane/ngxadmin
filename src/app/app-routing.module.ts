@@ -10,10 +10,12 @@ import {
 } from '@nebular/auth';
 import { LoginComponent } from './auth/login/login.component';
 import { ChangerpasswordComponent } from './auth/changerpassword/changerpassword.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'pages',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
@@ -29,9 +31,12 @@ export const routes: Routes = [
         path: 'changemdp',
         component: ChangerpasswordComponent,
       },
-     
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: '**', redirectTo: 'login' },
     ],
   },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', redirectTo: 'auth' },
 ];
 
 const config: ExtraOptions = {

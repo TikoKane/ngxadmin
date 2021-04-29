@@ -17,32 +17,21 @@ export class AuthService {
   redirectUrl: string;  constructor(private myRoute: Router , private http: HttpClient, public router: Router) { }
 
   login(value: Authentification) {
-    return this.http.post(this.url + 'utilisateurs',value);
+    return this.http.post(this.url + 'utilisateurs/auth',value);
     }
     
     getToken() {
-      return localStorage.getItem('token');
+      return localStorage.getItem('jwt');
     }
     isLoggedInn() {
       return this.getToken() !== null;
     }
-  }  //Miliko béréne fonction mm choz a la place de /login? => /firstConnexion 
-/*   login2(value: Users) {
-    return this.http.post(
-      this.host
-      + '/login?login='
-      + value.login
-      + '&' + 'password=' + value.password + '&' + 'magasin_id=' + value.magasin_id,
-      { observe : 'response'});
-  }
-
-
- 
-  saveToken(jwt: string,
-            nom: string, prenom: string, typeUser: number, iduser: number, idmagasin: number, magasin: string) {
-    localStorage.setItem('token', jwt);
-    localStorage.setItem('nom', nom);
-    localStorage.setItem('prenom', prenom);
+     
+    saveToken(jwt: string,
+            nom: string) {
+    localStorage.setItem('jwt', jwt);
+    localStorage.setItem('nomComplet', nom);
+  /*  localStorage.setItem('prenom', prenom);
     localStorage.setItem('id', String(iduser));
     this.role = typeUser;
     if(typeUser === 1)
@@ -57,8 +46,10 @@ export class AuthService {
     localStorage.setItem('idmagasin', String(idmagasin));
     localStorage.setItem('magasin', magasin);
 
-    this.isLoggedIn = true;
+    this.isLoggedIn = true;*/
   }
+  
+   }/*
   isAdmin() {
     return this.role === 1;
 
